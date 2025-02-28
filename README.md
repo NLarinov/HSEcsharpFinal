@@ -1,6 +1,6 @@
 # Library Manager
 
-![.NET Version](https://img.shields.io/badge/.NET-6.0-purple)
+![.NET Version](https://img.shields.io/badge/.NET-8.0-purple)
 ![License](https://img.shields.io/badge/License-MIT-green)
 [![OpenLibrary API](https://img.shields.io/badge/API-OpenLibrary-blue)](https://openlibrary.org)
 
