@@ -56,8 +56,8 @@
 
 ### Установка
 ```bash
-git clone https://github.com/ваш-репозиторий/library-manager.git
-cd library-manager
+git clone https://github.com/NLarinov/HSEcsharpFinal.git
+cd TkachevProject4
 dotnet restore
 dotnet run
 ```
