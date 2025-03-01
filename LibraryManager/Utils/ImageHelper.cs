@@ -5,7 +5,7 @@ namespace TkachevProject4.Utils;
 
 public static class ImageHelper
 {
-    public static void DisplayBookCover(string imagePath)
+    public static void DisplayBookCover(string? imagePath)
     {
         if (!File.Exists(imagePath)) return;
 

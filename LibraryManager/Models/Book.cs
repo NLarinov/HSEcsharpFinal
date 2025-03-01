@@ -6,23 +6,23 @@ namespace TkachevProject4.Models;
 
 public class Book
 {
-    public string Title { get; set; }
-    public string Author { get; set; }
-    public Genre Genre { get; set; }
-    public int PublicationYear { get; set; }
-    public string ISBN { get; set; }
+    public string? Title { get; init; }
+    public string? Author { get; init; }
+    public Genre Genre { get; init; }
+    public int PublicationYear { get; init; }
+    public string? Isbn { get; init; }
     
     [JsonProperty("rating")]
     [Range(0, 10)]
-    public double Rating { get; set; } = 0;
-    public string CoverPath { get; set; }
+    public double Rating { get; set; }
+    public string? CoverPath { get; set; }
     
     [JsonProperty("lastReadDate")]
     public DateTime? LastReadDate { get; set; }
     
     public void Validate() 
     {
-        if (!ISBNValidator.IsValid(ISBN))
+        if (!ISBNValidator.IsValid(Isbn))
             throw new ArgumentException("Invalid ISBN");
     }
 }

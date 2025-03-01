@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 public class LibraryService : ILibraryService
 {
-    private string _currentFilePath;
+    private string? _currentFilePath;
     public List<Book> Books { get; private set; } = [];
 
     public void LoadLibrary(string filePath)
@@ -21,7 +21,7 @@ public class LibraryService : ILibraryService
             throw new FileNotFoundException("Файл библиотеки не найден");
 
         var json = File.ReadAllText(filePath);
-        Books = JsonConvert.DeserializeObject<List<Book>>(json) ?? new List<Book>();
+        Books = JsonConvert.DeserializeObject<List<Book>>(json) ?? [];
         _currentFilePath = filePath;
     }
 
@@ -41,8 +41,8 @@ public class LibraryService : ILibraryService
 
         book.Validate();
 
-        if (Books.Any(b => b.ISBN == book.ISBN))
-            throw new ArgumentException($"Книга с ISBN {book.ISBN} уже существует");
+        if (Books.Any(b => b.Isbn == book.Isbn))
+            throw new ArgumentException($"Книга с ISBN {book.Isbn} уже существует");
 
         Books.Add(book);
     }
@@ -73,7 +73,7 @@ public class LibraryService : ILibraryService
         foreach (var book in importedBooks)
         {
             book.Validate();
-            if (Books.All(b => b.ISBN != book.ISBN))
+            if (Books.All(b => b.Isbn != book.Isbn))
             {
                 Books.Add(book);
             }

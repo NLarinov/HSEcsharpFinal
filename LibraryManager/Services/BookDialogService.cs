@@ -9,17 +9,16 @@ using Spectre.Console;
 
 public class BookDialogService
 {
-    // Services/BookDialogService.cs (дополнение)
-    public Book EditBook(Book existingBook)
+    public static Book EditBook(Book existingBook)
     {
         AnsiConsole.MarkupLine("[underline yellow]Редактирование книги[/]");
     
         var newTitle = AnsiConsole.Prompt(
-            new TextPrompt<string>("Название книги:")
+            new TextPrompt<string?>("Название книги:")
                 .DefaultValue(existingBook.Title));
     
         var newAuthor = AnsiConsole.Prompt(
-            new TextPrompt<string>("Автор:")
+            new TextPrompt<string?>("Автор:")
                 .DefaultValue(existingBook.Author));
 
         var newYear = AnsiConsole.Prompt(
@@ -37,8 +36,8 @@ public class BookDialogService
                 .UseConverter(g => g.GetDescription()));
 
         var newIsbn = AnsiConsole.Prompt(
-            new TextPrompt<string>("ISBN (10 или 13 цифр):")
-                .DefaultValue(existingBook.ISBN)
+            new TextPrompt<string?>("ISBN (10 или 13 цифр):")
+                .DefaultValue(existingBook.Isbn)
                 .Validate(isbn => 
                     ISBNValidator.IsValid(isbn) 
                         ? ValidationResult.Success() 
@@ -58,18 +57,18 @@ public class BookDialogService
             Author = newAuthor,
             PublicationYear = newYear,
             Genre = newGenre,
-            ISBN = newIsbn,
+            Isbn = newIsbn,
             Rating = newRating,
             CoverPath = existingBook.CoverPath
         };
     }
     
-    public async Task HandleBookCover(Book book, OpenLibraryService olService)
+    public static async Task HandleBookCover(Book book, OpenLibraryService olService)
     {
-        if (AnsiConsole.Confirm("Загрузить обложку из OpenLibrary?"))
+        if (await AnsiConsole.ConfirmAsync("Загрузить обложку из OpenLibrary?"))
         {
             var coversDir = Path.Combine(Environment.CurrentDirectory, "covers");
-            var coverPath = await olService.DownloadCover(book.ISBN, coversDir);
+            var coverPath = await OpenLibraryService.DownloadCover(book, coversDir);
         
             if (!string.IsNullOrEmpty(coverPath))
             {
@@ -83,23 +82,7 @@ public class BookDialogService
         }
     }
     
-    public async Task<Book> SearchOpenLibrary(OpenLibraryService olService)
-    {
-        var isbn = AnsiConsole.Prompt(
-            new TextPrompt<string>("Введите ISBN для поиска:")
-                .Validate(isbn => 
-                    ISBNValidator.IsValid(isbn) 
-                        ? ValidationResult.Success() 
-                        : ValidationResult.Error("Неверный ISBN")));
-
-        var book = new Book { ISBN = isbn };
-        var enrichedBook = await olService.EnrichBookInfo(book);
-    
-        return await AnsiConsole.ConfirmAsync("Найдена информация. Использовать её?") ? EditBook(enrichedBook) : // Переход в редактор
-            book;
-    }
-    
-    public Book CreateNewBook()
+    public static Book CreateNewBook()
     {
         AnsiConsole.MarkupLine("[underline green]Добавление новой книги[/]");
         
@@ -119,7 +102,7 @@ public class BookDialogService
                 .UseConverter(g => g.GetDescription()));
         
         var isbn = AnsiConsole.Prompt(
-            new TextPrompt<string>("ISBN (10 или 13 цифр):")
+            new TextPrompt<string?>("ISBN (10 или 13 цифр):")
                 .Validate(isbn => 
                     ISBNValidator.IsValid(isbn) 
                         ? ValidationResult.Success() 
@@ -131,7 +114,7 @@ public class BookDialogService
             Author = author,
             PublicationYear = year,
             Genre = genre,
-            ISBN = isbn
+            Isbn = isbn
         };
     }
 }

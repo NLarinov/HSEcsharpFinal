@@ -5,6 +5,6 @@ namespace TkachevProject4.Services.Interfaces;
 
 public interface IOpenLibraryClient
 {
-    [Get("/books?bibkeys=ISBN:{isbn}&format=json&jscmd=data")]
+    [Get("/api/books?bibkeys=ISBN:{isbn}&jscmd=data&format=json")]
     Task<Dictionary<string, OpenLibraryResponse>> GetBookInfo(string isbn);
 }

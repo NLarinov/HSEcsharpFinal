@@ -15,8 +15,8 @@ public class BookFilterService
 
         if (!string.IsNullOrWhiteSpace(searchTerm))
             query = query.Where(b => 
-                b.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
-                b.Author.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
+                b.Title != null && b.Author != null && (b.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                                                        b.Author.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)));
 
         if (genre != null)
             query = query.Where(b => b.Genre == genre);

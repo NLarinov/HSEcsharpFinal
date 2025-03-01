@@ -25,7 +25,7 @@ public static class ConsolePrinter
                 new Text($"Автор: {book.Author}"),
                 new Text($"Жанр: {book.Genre.GetDescription()}"),
                 new Text($"Год издания: {book.PublicationYear}"),
-                new Text($"ISBN: {book.ISBN}"),
+                new Text($"ISBN: {book.Isbn}"),
                 new Text($"Рейтинг: {book.Rating:0.0}")
             ))
         {
@@ -55,7 +55,6 @@ public static class ConsolePrinter
             .ToDictionary(g => g.Key, g => g.Count());
 
         var minYear = years.Keys.Min();
-        var maxYear = years.Keys.Max();
         var maxCount = years.Values.Max();
 
         var calendar = new Calendar(new DateTime(minYear, 1, 1))
@@ -82,22 +81,22 @@ public static class ConsolePrinter
     public static void DisplayBooksTable(IEnumerable<Book> books)
     {
         var table = new Table()
-            .Border(TableBorder.Rounded)
-            .Title("[yellow]БИБЛИОТЕКА[/]")
-            .AddColumn(new TableColumn("[bold]Название[/]").Centered())
-            .AddColumn(new TableColumn("[bold]Автор[/]").Centered())
-            .AddColumn(new TableColumn("[bold]Жанр[/]").Centered())
-            .AddColumn(new TableColumn("[bold]Год[/]").Centered())
-            .AddColumn(new TableColumn("[bold]ISBN[/]").Centered());
+            .AddColumn("[bold]Название[/]")
+            .AddColumn("[bold]Автор[/]")
+            .AddColumn("[bold]Жанр[/]")
+            .AddColumn("[bold]Год[/]")
+            .AddColumn("[bold]ISBN[/]");
 
         foreach (var book in books)
         {
+            var genre = book.Genre.GetDescription();
+        
             table.AddRow(
-                Markup.Escape(book.Title),
-                Markup.Escape(book.Author),
-                book.Genre.GetDescription(),
+                Markup.Escape(book.Title ?? "Не указано"),
+                Markup.Escape(book.Author ?? "Не указан"),
+                genre,
                 book.PublicationYear.ToString(),
-                Markup.Escape(book.ISBN)
+                Markup.Escape(book.Isbn ?? "Не указан")
             );
         }
 

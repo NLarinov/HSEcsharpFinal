@@ -18,14 +18,15 @@ public class RecommendationService
         IEnumerable<Book> allBooks,
         int count = 5)
     {
-        var favoriteGenres = userRatedBooks
+        var ratedBooks = userRatedBooks.ToList();
+        var favoriteGenres = ratedBooks
             .GroupBy(b => b.Genre)
             .OrderByDescending(g => g.Average(b => b.Rating))
             .Select(g => g.Key)
             .Take(2);
-
+        
         return allBooks
-            .Where(b => !userRatedBooks.Any(ub => ub.ISBN == b.ISBN))
+            .Where(b => ratedBooks.All(ub => ub.Isbn != b.Isbn))
             .Where(b => favoriteGenres.Contains(b.Genre))
             .OrderByDescending(b => b.Rating)
             .Take(count)

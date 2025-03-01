@@ -14,6 +14,6 @@ public enum Genre
     History,
     [Description("Научная литература")]
     Science,
-    [Description("Другое")]
+    [Description("Не указан")]
     Other
 }
