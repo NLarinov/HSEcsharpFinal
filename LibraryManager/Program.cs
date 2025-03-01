@@ -30,7 +30,7 @@ class Program
         }
         catch (Exception ex)
         {
-            AnsiConsole.MarkupLine($"[red]Критическая ошибка: {ex.Message}, {ex}[/]");
+            AnsiConsole.MarkupLine($"[red]Критическая ошибка: {ex.Message}[/]");
             AnsiConsole.MarkupLine("[yellow]Нажмите любую клавишу для выхода...[/]");
             Console.ReadKey();
         }
@@ -141,7 +141,7 @@ class Program
             }
             catch (Exception ex)
             {
-                AnsiConsole.MarkupLine($"[red]Ошибка: {ex.Message}, {ex}[/]");
+                AnsiConsole.MarkupLine($"[red]Ошибка: {ex.Message}[/]");
             }
 
             AnsiConsole.MarkupLine("\n[grey]Нажмите любую клавишу для продолжения...[/]");

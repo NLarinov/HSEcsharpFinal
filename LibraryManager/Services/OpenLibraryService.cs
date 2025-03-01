@@ -49,7 +49,7 @@ public class OpenLibraryService(IOpenLibraryClient client)
         }
         catch (Exception ex)
         {
-            AnsiConsole.MarkupLine($"[red]Ошибка: {ex.Message}, {ex}[/]");
+            AnsiConsole.MarkupLine($"[red]Ошибка: {ex.Message}[/]");
             return book;
         }
     }
