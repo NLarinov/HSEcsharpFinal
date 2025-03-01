@@ -124,7 +124,7 @@ dotnet run
     "Author": "Михаил Булгаков",
     "Genre": 2,
     "PublicationYear": 1967,
-    "ISBN": "9785170875468",
+    "ISBN": "9785998500695",
     "rating": 9.8,
     "CoverPath": "covers/9785170875468.jpg",
     "lastReadDate": null
@@ -134,7 +134,7 @@ dotnet run
     "Author": "Джордж Оруэлл",
     "Genre": 0,
     "PublicationYear": 1949,
-    "ISBN": "9785170918950",
+    "ISBN": "9785998500695",
     "rating": 9.5,
     "CoverPath": "covers/9785170918950.jpg",
     "lastReadDate": null
